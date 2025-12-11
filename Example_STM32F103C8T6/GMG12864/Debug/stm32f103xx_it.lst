@@ -1,0 +1,139 @@
+ARM GAS  C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f103xx_it.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.SysTick_Handler,"ax",%progbits
+  18              		.align	1
+  19              		.global	SysTick_Handler
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	SysTick_Handler:
+  25              	.LFB65:
+  26              		.file 1 "Core/Src/stm32f103xx_it.c"
+   1:Core/Src/stm32f103xx_it.c **** #include "stm32f103xx_it.h"
+   2:Core/Src/stm32f103xx_it.c **** 
+   3:Core/Src/stm32f103xx_it.c **** extern volatile uint32_t SysTimer_ms;         // Переменная, аналогичная HAL_G
+   4:Core/Src/stm32f103xx_it.c **** extern volatile uint32_t Delay_counter_ms;    // Счетчик для функции Delay_ms
+   5:Core/Src/stm32f103xx_it.c **** extern volatile uint32_t Timeout_counter_ms;  // Переменная для таймаута фу�
+   6:Core/Src/stm32f103xx_it.c **** 
+   7:Core/Src/stm32f103xx_it.c **** void SysTick_Handler(void) {
+  27              		.loc 1 7 28
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              		.cfi_def_cfa_offset 4
+  34              		.cfi_offset 7, -4
+  35 0002 00AF     		add	r7, sp, #0
+  36              		.cfi_def_cfa_register 7
+   8:Core/Src/stm32f103xx_it.c ****     SysTimer_ms++;
+  37              		.loc 1 8 16
+  38 0004 0D4B     		ldr	r3, .L5
+  39 0006 1B68     		ldr	r3, [r3]
+  40 0008 0133     		adds	r3, r3, #1
+  41 000a 0C4A     		ldr	r2, .L5
+  42 000c 1360     		str	r3, [r2]
+   9:Core/Src/stm32f103xx_it.c **** 
+  10:Core/Src/stm32f103xx_it.c ****     if (Delay_counter_ms) {
+  43              		.loc 1 10 9
+  44 000e 0C4B     		ldr	r3, .L5+4
+  45 0010 1B68     		ldr	r3, [r3]
+  46              		.loc 1 10 8
+  47 0012 002B     		cmp	r3, #0
+  48 0014 04D0     		beq	.L2
+ARM GAS  C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s 			page 2
+
+
+  11:Core/Src/stm32f103xx_it.c ****         Delay_counter_ms--;
+  49              		.loc 1 11 25
+  50 0016 0A4B     		ldr	r3, .L5+4
+  51 0018 1B68     		ldr	r3, [r3]
+  52 001a 013B     		subs	r3, r3, #1
+  53 001c 084A     		ldr	r2, .L5+4
+  54 001e 1360     		str	r3, [r2]
+  55              	.L2:
+  12:Core/Src/stm32f103xx_it.c ****     }
+  13:Core/Src/stm32f103xx_it.c ****     if (Timeout_counter_ms) {
+  56              		.loc 1 13 9
+  57 0020 084B     		ldr	r3, .L5+8
+  58 0022 1B68     		ldr	r3, [r3]
+  59              		.loc 1 13 8
+  60 0024 002B     		cmp	r3, #0
+  61 0026 04D0     		beq	.L4
+  14:Core/Src/stm32f103xx_it.c ****         Timeout_counter_ms--;
+  62              		.loc 1 14 27
+  63 0028 064B     		ldr	r3, .L5+8
+  64 002a 1B68     		ldr	r3, [r3]
+  65 002c 013B     		subs	r3, r3, #1
+  66 002e 054A     		ldr	r2, .L5+8
+  67 0030 1360     		str	r3, [r2]
+  68              	.L4:
+  15:Core/Src/stm32f103xx_it.c ****     }
+  16:Core/Src/stm32f103xx_it.c **** }...
+  69              		.loc 1 16 1
+  70 0032 00BF     		nop
+  71 0034 BD46     		mov	sp, r7
+  72              		.cfi_def_cfa_register 13
+  73              		@ sp needed
+  74 0036 80BC     		pop	{r7}
+  75              		.cfi_restore 7
+  76              		.cfi_def_cfa_offset 0
+  77 0038 7047     		bx	lr
+  78              	.L6:
+  79 003a 00BF     		.align	2
+  80              	.L5:
+  81 003c 00000000 		.word	SysTimer_ms
+  82 0040 00000000 		.word	Delay_counter_ms
+  83 0044 00000000 		.word	Timeout_counter_ms
+  84              		.cfi_endproc
+  85              	.LFE65:
+  87              		.text
+  88              	.Letext0:
+  89              		.file 2 "c:\\dev_tools\\stm32_tools\\gnu-tools-for-stm32.12.3\\tools\\arm-none-eabi\\include\\mach
+  90              		.file 3 "c:\\dev_tools\\stm32_tools\\gnu-tools-for-stm32.12.3\\tools\\arm-none-eabi\\include\\sys\
+ARM GAS  C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f103xx_it.c
+C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s:18     .text.SysTick_Handler:00000000 $t
+C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s:24     .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\SOLDER~1\AppData\Local\Temp\ccc89FHU.s:81     .text.SysTick_Handler:0000003c $d
+                           .group:00000000 wm4.0.57948b105342b2a9a91afe6dac72b4ef
+                           .group:00000000 wm4.stm32f1xx.h.39.208bb8a61c892b7c37d899c49a031330
+                           .group:00000000 wm4.stm32f103xb.h.38.ec967d5ad9d3269cb0788eebda048e38
+                           .group:00000000 wm4._newlib_version.h.4.bfdf54b0af045d4a71376ae00f63a22c
+                           .group:00000000 wm4.features.h.33.318b64d71e0957639cfb30f1db1f7ec8
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.cmsis_version.h.32.4d5822004c01a829a975260e854b5f8e
+                           .group:00000000 wm4.core_cm3.h.66.fc46cac19810db8f98d67da7ef88f42c
+                           .group:00000000 wm4.cmsis_gcc.h.26.4f5798e999d5690b80e6ded3ecc94b37
+                           .group:00000000 wm4.core_cm3.h.127.f4474120f1a7524deb56f9d74ff175da
+                           .group:00000000 wm4.stm32f103xb.h.573.10249aa7473ca93be896fed94046a725
+                           .group:00000000 wm4.stm32f1xx.h.162.96b09079a093c34dbd7f0b85cbd0ddee
+                           .group:00000000 wm4.stdbool.h.29.07dce69c3b78884144b7f7bd19483461
+
+UNDEFINED SYMBOLS
+SysTimer_ms
+Delay_counter_ms
+Timeout_counter_ms

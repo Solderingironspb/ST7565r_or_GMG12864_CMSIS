@@ -37,13 +37,13 @@
                                                                                                          
 /*----------Макросы----------*/
 #define NSS_PORT GPIOA  //Порт ножки CS
-#define NSS_PIN  0      //Пин ножки CS
+#define NSS_PIN  6      //Пин ножки CS
 
-#define RST_PORT GPIOA //Порт ножки Reset
-#define RST_PIN  1     //Пин ножки Reset
+#define RST_PORT GPIOB //Порт ножки Reset
+#define RST_PIN  0     //Пин ножки Reset
 
-#define DC_PORT GPIOA  //Порт ножки Data-command
-#define DC_PIN  2      //Пин ножки Data-command
+#define DC_PORT GPIOB  //Порт ножки Data-command
+#define DC_PIN  1      //Пин ножки Data-command
 
 //NSS_ACTIVE_LOW
 #define NSS_ON  NSS_PORT->BSRR = (1 << (NSS_PIN + 16)) //CS вкл. 
